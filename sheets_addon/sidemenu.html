@@ -1,0 +1,120 @@
+<link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+
+
+<div style="padding:1em">
+<center><img src="https://i.imgur.com/I95DiF4.png"></center>
+<br>
+This tool allows you to generate presentations and contracts. 
+<br><br>Find the generated files in your 'Recents' within Google Drive.
+
+<div><h3> Available documents for Fixed Rent Guarantee deals:</h3>
+</div>
+<div>
+  <input type="radio" id="pff" name="radio_button">
+  <label for="checkbox1">Property Funding Form</label>
+</div>
+<div>
+  <input type="radio" id="offer_presentation" name="radio_button">
+  <label for="checkbox2">PM Offer Presentation</label>
+</div>
+<div>
+  <input type="radio" id="owner_agreement" name="radio_button">
+  <label for="checkbox3">Owner Offer Presentation</label>
+</div>
+<br>
+<div><h3>Available documents for Secure Income Guarantee deals:</h3>
+</div>
+<div>
+  <input type="radio" id="sig_contract" name="radio_button">
+  <label for="checkbox5">Contract</label>
+</div>
+<div>
+  <input type="radio" id="sig_presentation_owner" name="radio_button">
+  <label for="checkbox4">Owner Presentation</label>
+</div>
+<div>
+  <input type="radio" id="sig_presentation_manager" name="radio_button">
+  <label for="checkbox4">Property Manager Presentation</label>
+</div>
+<br>
+   <center><input type="button" class="share" value="Generate document" onclick="generatePffOrPresentation()" style="width:250px; margin:15px" /></center>
+<br><br>
+<!--
+<div style="padding:10px;background:#f5f5f5">
+<p style="text-align:justify"> <i>This merge tool expects that the variable labels you want to merge are in the first row, and 
+that the variables you want to merge are on the 4th row. <br> 
+It also expects that the sheet that contains this data formatted for export on the appropriate rows (usually 1 and 4) is named 'Generate'. If it's not named 'Generate', then nothing will happen when you click the button.
+<p style="text-align:justify"> If you're getting weird errors, check
+to see the labels + data are in the correct rows.
+<br><br> Looking for something greater? Create something custom using the advanced options below.</i>
+</div>
+
+<i><h3>Advanced options</h3></i>
+<div style="padding:10px;background:#f5f5f5">If you're generating a PFF or an offer presentation, there's no need to change anything below. 
+In fact, don't even click the button at the bottom. Click the button above me!</div>
+<br>
+<h4>Custom name:</h4>
+<input type="text" placeholder="Type a descriptive name here" id="document_name" />
+<h4>Choose the sheet where formatted data lives:</h4>
+    <select id="optionList">
+        <option>Loading...</option>
+    </select>
+<h4>What row are the variable names in?</h4> <input type="text" placeholder="1" id="variable_row" />
+<h4>What row is the data in? </h4> <i>(Should always be 4)</i><br><br><input type="text" placeholder="4" id="data_row" />
+<h4>For documents other than a PFF or Offer Presentation, enter the Template ID:</h4>
+<input type="text" placeholder="1htnntxSarzYOwytNAHd6VuiSir8YgG1QkqUzpYoDQ_I" id="template_id" /><br><br>
+<div style="padding:10px;background:#f5f5f5">HINT! The Template ID is the alphanumeric string in the URL of a Google Document. For exmaple, the ID for the following URL is 
+https://docs.google.com/spreadsh<br>eets/d/<b>1piPwUhW8NzzCYEjshWBR-J3Rmn-37-tnvOu9ym5bggI</b>/edit#gid=1680376732</div>
+
+<h4>For documents other than a PFF or Offer Presentation, choose the output format:</h4>
+    <select id="output">
+        <option>Google Doc</option>
+        <option>Google Slides</option>
+    </select>
+    <br> <br> Note: clicking the following button will not create a PFF or an Offer Presentation if you checked the boxes at the top of this sidebar. 
+    To generate either of those, you will need to click the create button above. <br><br>
+    <center><input type="button" class="create" value="Create doc" onclick="generateDocument()" style="width:250px"/></center>
+    <br><br><i>By the way, clicking the button above won't generate a standard PFF or offer presentation.</i><br><br><br>
+</div>
+-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js">
+</script>
+<script>
+// This code in this function runs when the page is loaded.
+$(function() {
+  google.script.run.withSuccessHandler(buildOptionList)
+      .getListOptions();
+});
+
+function buildOptionList(options) {
+  var list = $('#optionList');
+  list.empty();
+  for (var i = 0; i < options.length; i++) {
+    list.append('<option value="' + options[i].toLowerCase() + '">' + options[i] + '</option>');
+  }
+}
+</script>
+
+<script language="javascript" type="text/javascript">
+    function generatePffOrPresentation() {    
+        var offer_presentation = document.getElementById('offer_presentation').checked;
+        var pff = document.getElementById('pff').checked;
+        var owner_agreement = document.getElementById('owner_agreement').checked;
+        var sig_contract = document.getElementById('sig_contract').checked;
+        var sig_presentation_owner = document.getElementById('sig_presentation_owner').checked;
+        var sig_presentation_manager = document.getElementById('sig_presentation_manager').checked;
+        google.script.run.createMergedDoc(offer_presentation, pff, owner_agreement, sig_contract, sig_presentation_owner, sig_presentation_manager);
+    }
+</script>
+
+<script language="javascript" type="text/javascript">
+//    function generateDocument() {
+//        var offer_presentation = null;
+//        var pff = null;
+//        var template_id = document.getElementById('template_id').value;
+//        var output = document.getElementById('output').value;
+//        var custom = true;
+//
+//        google.script.run.createMergedDoc(custom, null, null, owner_agreement, document_name, sheet_name, variable_row, data_row, template_id, output, custom);
+//    }
+</script>
